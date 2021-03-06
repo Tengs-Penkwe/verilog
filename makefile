@@ -1,21 +1,20 @@
+SRCS		=	$(shell find . -name "*.v" )
+RSL			=	$(patsubst %.v,%.out,$(SRCS))
+
 LOG			:=	iverilog
 LOGFLAGS	:=	
-LOGFIX		=	v
-
-
 ENV			:=	vvp
-RSL			=	hola.out 
 
+all: $(RSL)
+	$(ENV) $(RSL)
 
-#all: %.out
-
-%.out: %.$(LOGFIX)
+%.out: %.v
 	$(LOG)	$(LOGFLAGS) -o $@ $<
 
 .PHONY: sim clean
 
-sim: $(RSL)
-	$(ENV) hola.out
+sim: $(M).out
+	$(ENV) $(M).out
 
 clean:
 	rm -rf *.out
